@@ -298,7 +298,7 @@ if __name__ == "__main__":
     all_outputs_skip = np.concatenate(outputs_skip, axis=0)
     pca_outputs_skip, eigenvalues_skip, _ = pca_manual(all_outputs_skip, n_components=2)
 
-    # Save PCA scatter plot
+    # Save PCA scatter plot for AlexNetWithSkip
     fig, ax = plt.subplots(figsize=(10, 8))
     scatter = ax.scatter(pca_outputs_skip[:, 0], pca_outputs_skip[:, 1], c=labels_skip, cmap='tab10', alpha=0.7)
     plt.colorbar(scatter, label="Class Label")
@@ -325,11 +325,11 @@ if __name__ == "__main__":
     all_outputs_no_skip = np.concatenate(outputs_no_skip, axis=0)
     pca_outputs_no_skip, eigenvalues_no_skip, _ = pca_manual(all_outputs_no_skip, n_components=2)
 
-    # Save PCA scatter plot
+    # Save PCA scatter plot for AlexNetWithNoSkip
     fig, ax = plt.subplots(figsize=(10, 8))
-    scatter = ax.scatter(pca_outputs_skip[:, 0], pca_outputs_skip[:, 1], c=labels_skip, cmap='tab10', alpha=0.7)
+    scatter = ax.scatter(pca_outputs_no_skip[:, 0], pca_outputs_no_skip[:, 1], c=labels_no_skip, cmap='tab10', alpha=0.7)
     plt.colorbar(scatter, label="Class Label")
-    ax.set_title("2D PCA Embedding of CIFAR-10 Outputs (AlexNetWithSkip)")
+    ax.set_title("2D PCA Embedding of CIFAR-10 Outputs (AlexNetWithNoSkip)")
     ax.set_xlabel("Principal Component 1")
     ax.set_ylabel("Principal Component 2")
     ax.grid()
