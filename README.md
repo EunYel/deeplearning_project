@@ -4,5 +4,5 @@
 ## 실행 스크립트
 
 ```
-$ pip install -r ./requirements.txt
+$ python3 project_alexnet.py
 ```
