@@ -126,19 +126,6 @@ class AlexNetWithNoSkip(nn.Module):
         x = self.linear_regressor(x)
         return x
 
-# PCA implementation
-def pca_manual(data, n_components=2):
-    mean_data = np.mean(data, axis=0)
-    centered_data = data - mean_data
-    covariance_matrix = np.cov(centered_data, rowvar=False)
-    eigenvalues, eigenvectors = np.linalg.eig(covariance_matrix)
-    sorted_indices = np.argsort(eigenvalues)[::-1]
-    eigenvectors = eigenvectors[:, sorted_indices]
-    eigenvalues = eigenvalues[sorted_indices]
-    selected_eigenvectors = eigenvectors[:, :n_components]
-    transformed_data = np.dot(centered_data, selected_eigenvectors)
-    return transformed_data, eigenvalues, selected_eigenvectors
-
 def train_model(model, train_loader, val_loader, criterion, optimizer, epochs, model_name):
     train_losses = []
     val_losses = []
@@ -276,7 +263,19 @@ def test_model(model, test_loader, criterion, model_name):
     plt.close()
 
     return all_outputs, all_labels
-
+    
+    # PCA implementation
+def pca_manual(data, n_components=2):
+    mean_data = np.mean(data, axis=0)
+    centered_data = data - mean_data
+    covariance_matrix = np.cov(centered_data, rowvar=False)
+    eigenvalues, eigenvectors = np.linalg.eig(covariance_matrix)
+    sorted_indices = np.argsort(eigenvalues)[::-1]
+    eigenvectors = eigenvectors[:, sorted_indices]
+    eigenvalues = eigenvalues[sorted_indices]
+    selected_eigenvectors = eigenvectors[:, :n_components]
+    transformed_data = np.dot(centered_data, selected_eigenvectors)
+    return transformed_data, eigenvalues, selected_eigenvectors
 
 if __name__ == "__main__":
     # Load data
